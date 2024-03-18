@@ -6,11 +6,14 @@ import { Table } from 'flowbite-react';
 
 import './CheckRoom.css';
 
+import { useReservations } from '../../api/reservations';
+
 const Check = () => {
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth() + 1;
   const day = today.getDate();
+  const { data: reservations } = useReservations();
 
   let monthFormatted = month < 10 ? `0${month}` : month;
   let dayFormatted = day < 10 ? `0${day}` : day;
@@ -29,12 +32,15 @@ const Check = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
+  console.log(reservations);
 
   return (
     <div>
-      <div className="felx text-center font-bold text-3xl mt-20">
+      <div className="flex text-center font-bold text-3xl mt-20">
         내 신청 현황
       </div>
+
+      <div>{JSON.stringify(reservations)}</div>
 
       <div id="table" className="overflow-x-auto mt-10 p-2">
         <Table className="border">
